@@ -1,0 +1,14 @@
+table, td, th{
+    border: 1px solid black;
+    
+    text-align: center;
+}
+#tab {
+    border: none;
+    white-space: nowrap;
+    border-spacing: 20px;
+
+}
+.row>td{
+    border: none;
+}
