@@ -1,0 +1,27 @@
+.reserva {
+  background-image: url('assets/reserva.png');
+  position: absolute;
+  left: 0;
+  top: 56px;
+  z-index: 1;
+}
+
+.foco-incendio {
+  background-image: url('assets/foco.gif');
+  position: absolute;
+  z-index: 2;
+}
+
+.vida {
+  background-image: url('assets/arvore.png');
+  position: absolute;
+  top: 0;
+  z-index: 1; 
+}
+
+.score{
+  font-weight: bold;
+  font-family: "sans-serif";
+  font-size: 50px;
+  text-align: right;
+}
