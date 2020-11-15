@@ -96,15 +96,6 @@
 
       
     }
-
-    // extinguish(){ 
-    //   document.getElementsByClassName("burning").addEventListener("click", (e)=>{
-    //     this.state = "extinguished";
-    //     this.element.parentNode.removeChild(this.element);
-    //   });   
-    
-      
-     
       
   }
 
