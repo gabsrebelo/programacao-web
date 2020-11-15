@@ -7,11 +7,12 @@
   let focoDimensions = [100, 130];
   let lifeDimensions = [100, 54];
   let devastationDims = [250,250];
+  let pauseDims = [512,512];
   let probFoco = 25;
   let reserva;
-  let focos = [];
   let gameLoop;
-  const S = 115;
+  let pause = null;
+
 
   function init() {
     setScenario();
@@ -20,8 +21,23 @@
 
   function startGame(){
     window.addEventListener("keypress", (e) =>{
-      if(e.key === 's')
+      if(e.key === 's'){
         gameLoop = setInterval(setFire, 1000/FPS);
+        pauseGame();
+      }
+    });
+
+        
+  }
+
+  function pauseGame(){
+    window.addEventListener("keypress", (e) =>{
+      if (e.key === 'p') {
+        clearInterval(gameLoop);
+        if(pause == null){
+          pause = new Pause();
+        }        
+      }
     });
   }
 
@@ -31,17 +47,30 @@
     score = new Score();
   }
 
-  window.addEventListener("keydown", function (e) {
-    if (e.key === 'o') {
-      clearInterval(gameLoop);
-    }
-  })
-
   function setFire() {
     if (Math.random() * 100 < probFoco) {
       let foco = new FocoIncendio();
-      focos.push(foco);
       foco.burning();
+    }
+  }
+
+  class Timer{
+    constructor(callback, delay){
+      this.timerId = delay;
+      this.start = delay;
+      this.remaining = delay;
+      this.callback = callback;
+    }
+
+    pause(){
+      window.clearTimeout(this.timerId);
+      this.remaining -= Date.now() - this.start;
+    }
+
+    resume(){
+      this.start = Date.now();
+      window.clearTimeout(this.timerId);
+      this.timerId = window.setTimeout(this.callback,this.remaining);
     }
   }
 
@@ -72,7 +101,9 @@
     burning(){
       var self = this;
 
-      setTimeout(devastation, 2000);
+      let timer = new Timer(devastation, 2000);
+      timer.resume();
+
       putOutFire();
 
       function devastation(){
@@ -131,6 +162,16 @@
     increaseScore(points){
       this.num += points;
       this.element.innerHTML = this.num.toString().padStart(5, "0");
+    }
+  }
+
+  class Pause{
+    constructor(){
+      this.element = document.createElement("div");
+      this.element.className = "pause";
+      this.element.style.width = `${pauseDims[0]}px`;
+      this.element.style.height = `${pauseDims[1]}px`;
+      reserva.element.appendChild(this.element);
     }
   }
 

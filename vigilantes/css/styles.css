@@ -31,3 +31,11 @@
   font-size: 50px;
   text-align: right;
 }
+
+.pause{
+  background-image: url('assets/pause.png');
+  top: 200px;
+  left: 300px;
+  position: absolute;
+  z-index: 3; 
+}
