@@ -11,6 +11,7 @@
   let probFoco = 25;
   let reserva;
   let gameLoop;
+  let focoTimers = [];
   let pause = null;
 
 
@@ -37,11 +38,22 @@
     window.addEventListener("keypress", (e) =>{
       if (e.key === 'p') {
         clearInterval(gameLoop);
+        focoTimers.forEach((t) => {
+          t.pause();
+        })
         if(pause == null){
           pause = new Pause();
         }        
       }
     });
+
+    window.addEventListener("keypress", (e) => {
+      if(e.key === 'r'){
+        focoTimers.forEach((t)=>{
+          t.resume();
+        });
+      }
+    })
   }
 
   function setScenario(){
@@ -104,10 +116,14 @@
     burning(){
       var self = this;
 
-      let timer = new Timer(devastation, 2000);
-      timer.resume();
-
+      stillBurning();
       putOutFire();
+
+      function stillBurning(){
+        let timer = new Timer(devastation, 2000);
+        focoTimers.push(timer);
+        timer.resume();
+      }
 
       function devastation(){
         if(self.state != "extinguished"){
@@ -116,6 +132,7 @@
           self.element.style.width = `${devastationDims[1]}px`;
           self.element.removeEventListener("click",extinguish);
           lives.loseLives(1);
+          //todo: retirar da lista de focoTimers
         } 
       }
 
