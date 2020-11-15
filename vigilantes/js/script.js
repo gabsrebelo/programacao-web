@@ -45,15 +45,13 @@
           pause = new Pause();
         }        
       }
-    });
 
-    window.addEventListener("keypress", (e) => {
       if(e.key === 'r'){
         focoTimers.forEach((t)=>{
           t.resume();
         });
       }
-    })
+    });
   }
 
   function setScenario(){
