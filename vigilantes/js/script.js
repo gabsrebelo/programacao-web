@@ -81,7 +81,7 @@
           self.element.style.height = `${devastationDims[0]}px`;
           self.element.style.width = `${devastationDims[1]}px`;
           self.element.removeEventListener("click",extinguish);
-          lives.loseLives();
+          lives.loseLives(1);
         } 
       }
 
