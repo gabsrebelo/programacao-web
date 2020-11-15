@@ -85,14 +85,17 @@
         } 
       }
 
-      function extinguish(){
-        self.state = "extinguished";
-        self.element.parentNode.removeChild(self.element);
-      }
-
       function putOutFire(){
         self.element.addEventListener("click", extinguish);
       }
+
+      function extinguish(){
+        self.state = "extinguished";
+        self.element.parentNode.removeChild(self.element);
+        score.increaseScore(10);
+      }
+
+      
     }
       
   }
@@ -123,6 +126,11 @@
       this.element.style.width = `${gameDimensions[0]}px`;
       this.element.innerHTML = this.num.toString().padStart(5, "0"); 
       document.body.appendChild(this.element);
+    }
+
+    increaseScore(points){
+      this.num += points;
+      this.element.innerHTML = this.num.toString().padStart(5, "0");
     }
   }
 
