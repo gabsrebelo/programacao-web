@@ -25,7 +25,7 @@
     function start(e){
       if(e.key === 's'){
         window.removeEventListener("keypress",start);
-        gameLoop = setInterval(setFire, 1000/FPS);
+        setFireLooping();
         pauseGame();
         resumeGame();
       }      
@@ -33,6 +33,10 @@
 
 
     window.addEventListener("keypress",start);  
+  }
+
+  function setFireLooping(){
+    gameLoop = setInterval(setFire, 1000/FPS);
   }
 
   function pauseGame(){
@@ -44,7 +48,9 @@
         })
         if(pause == null){
           pause = new Pause();
-        }        
+        }       
+        
+        //todo: remover click de apagar incendio
       }
     });
   }
@@ -54,6 +60,7 @@
       if(e.key === 'r'){
         resumeFocos();
         removePauseButton();
+        setFireLooping();
       }
     })
 
