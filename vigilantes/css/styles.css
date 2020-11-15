@@ -12,6 +12,12 @@
   z-index: 2;
 }
 
+.foco-devastated{
+  background-image: url('assets/devastacao.png');
+  position: absolute;
+  z-index: 2;
+}
+
 .vida {
   background-image: url('assets/arvore.png');
   position: absolute;

@@ -37,10 +37,11 @@
     }
   })
 
-  function setFire () {
+  function setFire() {
     if (Math.random() * 100 < probFoco) {
       let foco = new FocoIncendio();
       focos.push(foco);
+      foco.burning();
     }
   }
 
@@ -63,7 +64,37 @@
       this.element.style.left = `${Math.floor((Math.random() * (gameDimensions[0]-focoDimensions[0])))}px`;
       this.element.style.top = `${Math.floor((Math.random() * (gameDimensions[1]-focoDimensions[1])))}px`;
       reserva.element.appendChild(this.element);
+
+      this.state = "burning";
+
     }
+
+    burning(){
+      var self = this;
+
+      function devastation(){
+        if(self.state != "extinguished"){
+          //todo:diminuir a qtd de vidas
+          self.element.className += " foco-devastated";
+        } 
+      }
+
+      // function extinguish(){
+
+      // }
+
+      setTimeout(devastation, 2000);
+    }
+
+    // extinguish(){ 
+    //   document.getElementsByClassName("burning").addEventListener("click", (e)=>{
+    //     this.state = "extinguished";
+    //     this.element.parentNode.removeChild(this.element);
+    //   });   
+    
+      
+     
+      
   }
 
   class Life {
@@ -98,9 +129,10 @@
 })();
 
 
-//todo: inserir quadro de pontuação
 //todo: criar função stillBurning
 //todo: criar função putOutFire
+//todo: devastation => flag se apagado
+//todo: criar função de inserir pontos no Score e add na class fogo
 
 
 //-----------melhorias
