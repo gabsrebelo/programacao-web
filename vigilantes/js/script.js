@@ -72,20 +72,29 @@
     burning(){
       var self = this;
 
+      setTimeout(devastation, 2000);
+      putOutFire();
+
       function devastation(){
         if(self.state != "extinguished"){
           //todo:diminuir a qtd de vidas
           self.element.className += " foco-devastated";
           self.element.style.height = `${devastationDims[0]}px`;
           self.element.style.width = `${devastationDims[1]}px`;
+          self.element.removeEventListener("click",extinguish);
         } 
       }
 
-      // function extinguish(){
+      function extinguish(){
+        self.state = "extinguished";
+        self.element.parentNode.removeChild(self.element);
+      }
 
-      // }
+      function putOutFire(){
+        self.element.addEventListener("click", extinguish);
+      }
 
-      setTimeout(devastation, 2000);
+      
     }
 
     // extinguish(){ 
