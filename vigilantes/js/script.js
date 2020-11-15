@@ -1,6 +1,6 @@
 (function () {
 
-  const FPS = 1; 
+  const FPS = 5; 
 
   //Dimensions
   let gameDimensions = [1243, 960];
@@ -24,14 +24,15 @@
 
     function start(e){
       if(e.key === 's'){
+        window.removeEventListener("keypress",start);
         gameLoop = setInterval(setFire, 1000/FPS);
         pauseGame();
-      }
-      window.removeEventListener("keypress",start);
+        resumeGame();
+      }      
     }
-    window.addEventListener("keypress",start);
 
-        
+
+    window.addEventListener("keypress",start);  
   }
 
   function pauseGame(){
@@ -45,13 +46,25 @@
           pause = new Pause();
         }        
       }
-
-      if(e.key === 'r'){
-        focoTimers.forEach((t)=>{
-          t.resume();
-        });
-      }
     });
+  }
+
+  function resumeGame(){
+    window.addEventListener("keypress", (e)=>{
+      if(e.key === 'r'){
+        resumeFocos();
+        removePauseButton();
+      }
+    })
+
+    function removePauseButton(){
+      reserva.element.removeChild(pause.element);
+      pause = null;
+    }
+
+    function resumeFocos(){
+      focoTimers.forEach((t) => t.resume());
+    }
   }
 
   function setScenario(){
