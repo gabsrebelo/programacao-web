@@ -6,7 +6,7 @@
   let gameDimensions = [1243, 960];
   let focoDimensions = [100, 130];
   let lifeDimensions = [100, 54];
-
+  let devastationDims = [250,250];
   let probFoco = 25;
   let reserva;
   let focos = [];
@@ -61,8 +61,8 @@
       this.element.className = "foco-incendio";
       this.element.style.width = `${focoDimensions[0]}px`;
       this.element.style.height = `${focoDimensions[1]}px`;
-      this.element.style.left = `${Math.floor((Math.random() * (gameDimensions[0]-focoDimensions[0])))}px`;
-      this.element.style.top = `${Math.floor((Math.random() * (gameDimensions[1]-focoDimensions[1])))}px`;
+      this.element.style.left = `${Math.floor((Math.random() * (gameDimensions[0]-devastationDims[0])))}px`;
+      this.element.style.top = `${Math.floor((Math.random() * (gameDimensions[1]-devastationDims[1])))}px`;
       reserva.element.appendChild(this.element);
 
       this.state = "burning";
@@ -76,8 +76,8 @@
         if(self.state != "extinguished"){
           //todo:diminuir a qtd de vidas
           self.element.className += " foco-devastated";
-          self.element.style.height = "250px";
-          self.element.style.width = "250px";
+          self.element.style.height = `${devastationDims[0]}px`;
+          self.element.style.width = `${devastationDims[1]}px`;
         } 
       }
 
