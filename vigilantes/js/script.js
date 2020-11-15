@@ -76,6 +76,8 @@
         if(self.state != "extinguished"){
           //todo:diminuir a qtd de vidas
           self.element.className += " foco-devastated";
+          self.element.style.height = "250px";
+          self.element.style.width = "250px";
         } 
       }
 
