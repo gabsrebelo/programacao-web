@@ -21,7 +21,7 @@
   function startGame(){
     window.addEventListener("keypress", (e) =>{
       if(e.key === 's')
-        gameLoop = setInterval(burn, 1000/FPS);
+        gameLoop = setInterval(setFire, 1000/FPS);
     });
   }
 
@@ -37,7 +37,7 @@
     }
   })
 
-  function burn () {
+  function setFire () {
     if (Math.random() * 100 < probFoco) {
       let foco = new FocoIncendio();
       focos.push(foco);
