@@ -27,7 +27,7 @@
 
   function setScenario(){
     reserva = new Reserva();
-    lifes = new Life();
+    lives = new Life();
     score = new Score();
   }
 
@@ -81,7 +81,7 @@
           self.element.style.height = `${devastationDims[0]}px`;
           self.element.style.width = `${devastationDims[1]}px`;
           self.element.removeEventListener("click",extinguish);
-          lifes.loseLife();
+          lives.loseLives();
         } 
       }
 
@@ -102,18 +102,18 @@
 
   class Life {
     constructor (){
-      this.number = 5;
+      this.remainingLives = 5;
       this.element = document.createElement("div");
       this.element.className = "vida";
-      this.element.style.width = `${this.number*lifeDimensions[0]}px`;
+      this.element.style.width = `${this.remainingLives*lifeDimensions[0]}px`;
       this.element.style.height = `${lifeDimensions[1]}px`;
       document.body.appendChild(this.element);
     }
 
-    loseLife(){
-      if(this.number > 0){
-        this.number--;
-        this.element.style.width = `${this.number*lifeDimensions[0]}px`;
+    loseLives(lives){
+      if(this.remainingLives > 0){
+        this.remainingLives -= lives;
+        this.element.style.width = `${this.remainingLives*lifeDimensions[0]}px`;
       }
     }
   }
@@ -137,9 +137,6 @@
 
   init();
 })();
-
-
-//todo: criar função de inserir pontos no Score e add na class fogo
 
 
 //-----------melhorias
