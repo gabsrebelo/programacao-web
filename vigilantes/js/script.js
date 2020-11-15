@@ -77,11 +77,11 @@
 
       function devastation(){
         if(self.state != "extinguished"){
-          //todo:diminuir a qtd de vidas
           self.element.className += " foco-devastated";
           self.element.style.height = `${devastationDims[0]}px`;
           self.element.style.width = `${devastationDims[1]}px`;
           self.element.removeEventListener("click",extinguish);
+          lifes.loseLife();
         } 
       }
 
@@ -93,8 +93,6 @@
       function putOutFire(){
         self.element.addEventListener("click", extinguish);
       }
-
-      
     }
       
   }
@@ -110,8 +108,10 @@
     }
 
     loseLife(){
-      this.number--;
-      this.element.style.width = `${this.number*lifeDimensions[0]}px`;
+      if(this.number > 0){
+        this.number--;
+        this.element.style.width = `${this.number*lifeDimensions[0]}px`;
+      }
     }
   }
 
@@ -131,9 +131,6 @@
 })();
 
 
-//todo: criar função stillBurning
-//todo: criar função putOutFire
-//todo: devastation => flag se apagado
 //todo: criar função de inserir pontos no Score e add na class fogo
 
 
