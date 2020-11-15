@@ -20,12 +20,15 @@
   }
 
   function startGame(){
-    window.addEventListener("keypress", (e) =>{
+
+    function start(e){
       if(e.key === 's'){
         gameLoop = setInterval(setFire, 1000/FPS);
         pauseGame();
       }
-    });
+      window.removeEventListener("keypress",start);
+    }
+    window.addEventListener("keypress",start);
 
         
   }
