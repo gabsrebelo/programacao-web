@@ -1,6 +1,6 @@
 (function () {
 
-  const FPS = 5; 
+  const FPS = 1; 
 
   //Dimensions
   let gameDimensions = [1243, 960];
@@ -50,7 +50,6 @@
           pause = new Pause();
         }       
         
-        //todo: remover click de apagar incendio
       }
     });
   }
@@ -123,11 +122,33 @@
       this.element.className = "foco-incendio";
       this.element.style.width = `${focoDimensions[0]}px`;
       this.element.style.height = `${focoDimensions[1]}px`;
-      this.element.style.left = `${Math.floor((Math.random() * (gameDimensions[0]-devastationDims[0])))}px`;
-      this.element.style.top = `${Math.floor((Math.random() * (gameDimensions[1]-devastationDims[1])))}px`;
+      generatePosition(this);
       reserva.element.appendChild(this.element);
 
       this.state = "burning";
+
+      function generatePosition(self){
+        let left = Math.floor((Math.random() * (gameDimensions[0]-devastationDims[0])));
+        let top = Math.floor((Math.random() * (gameDimensions[1]-devastationDims[1])));
+
+        while(isFireAtBigLake() || isFireAtSmallLake()){
+          left = Math.floor((Math.random() * (gameDimensions[0]-devastationDims[0])));
+          top = Math.floor((Math.random() * (gameDimensions[1]-devastationDims[1])));
+
+        }
+
+        self.element.style.left = `${left}px`;
+        self.element.style.top = `${top}px`;
+
+        function isFireAtBigLake(){
+          return left > 670 && left < 1050 && top < 90;
+        }
+  
+        function isFireAtSmallLake(){
+          return top > 440 && top < 700 && left < 212;
+        }
+      }
+
 
     }
 
