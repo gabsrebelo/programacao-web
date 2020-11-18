@@ -8,6 +8,8 @@
   let lifeDimensions = [100, 54];
   let devastationDims = [250,250];
   let pauseDims = [512,512];
+  let skullDims = [120,136];
+  
   let probFoco = 25;
   let reserva;
   let gameLoop;
@@ -25,7 +27,7 @@
     function start(e){
       if(e.key === 's'){
         window.removeEventListener("keypress",start);
-        setFireLooping();
+        setLooping();
         pauseGame();
         resumeGame();
       }      
@@ -35,8 +37,8 @@
     window.addEventListener("keypress",start);  
   }
 
-  function setFireLooping(){
-    gameLoop = setInterval(setFire, 1000/FPS);
+  function setLooping(){
+    gameLoop = setInterval(putEvils, 1000/FPS);
   }
 
   function pauseGame(){
@@ -59,7 +61,7 @@
       if(e.key === 'r'){
         resumeFocos();
         removePauseButton();
-        setFireLooping();
+        setLooping();
       }
     })
 
@@ -79,12 +81,33 @@
     score = new Score();
   }
 
+  function putEvils(){
+    setFire();
+    setSkulls();
+  }
+
   function setFire() {
     if (Math.random() * 100 < probFoco) {
       let foco = new FocoIncendio();
       foco.burning();
     }
   }
+
+  function setSkulls(){
+    let random = generateRandomTime(5,20);
+    setTimeout(createSkull,random);
+
+    function generateRandomTime(min,max){
+      return (Math.floor(Math.random() * (max - min) ) + min)*1000;
+    }
+
+    function createSkull(){
+      let skull = new Skull();
+      // skull.burning();
+    }
+  }
+
+  
 
   class Timer{
     constructor(callback, delay){
@@ -190,6 +213,16 @@
       
   }
 
+  class Skull{
+    constructor(){
+      this.element = document.createElement("div");
+      this.element.className = "skull";
+      this.element.style.width = `${skullDims[0]}px`;
+      this.element.style.height = `${skullDims[1]}px`;
+      reserva.element.appendChild(this.element);
+    }
+  }
+
   class Life {
     constructor (){
       this.remainingLives = 5;
@@ -233,6 +266,8 @@
       reserva.element.appendChild(this.element);
     }
   }
+
+  
 
 
   init();
