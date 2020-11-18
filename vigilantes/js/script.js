@@ -1,6 +1,6 @@
 (function () {
 
-  const FPS = 1; 
+  let FPS = 1; 
 
   //Dimensions
   let gameDimensions = [1243, 960];
@@ -33,15 +33,24 @@
         setLooping();
         pauseGame();
         resumeGame();
+        
       }      
     }
-
-
     window.addEventListener("keypress",start);  
   }
 
   function setLooping(){
+    //todo: adicionar game over
     gameLoop = setInterval(putEvils, 1000/FPS);
+    increaseFPS();
+  }
+
+  function increaseFPS(){
+    setInterval(()=>{
+      FPS = FPS * 1.25
+      // console.log(FPS);
+    },60000/FPS)
+    
   }
 
   function pauseGame(){
