@@ -45,3 +45,9 @@
   position: absolute;
   z-index: 2;
 }
+
+.skull-devastated{
+  background-image: url('assets/devastacao_grande.png');
+  position: absolute;
+  z-index: 2;
+}

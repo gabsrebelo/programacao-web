@@ -7,6 +7,7 @@
   let focoDimensions = [100, 130];
   let lifeDimensions = [100, 54];
   let devastationDims = [250,250];
+  let bigDevastationDims = [375,375];
   let pauseDims = [512,512];
   let skullDims = [120,136];
   
@@ -14,7 +15,9 @@
   let reserva;
   let gameLoop;
   let focoTimers = [];
+  let skullTimers = [];
   let pause = null;
+  let addMoreSkulls = true;
 
 
   function init() {
@@ -45,9 +48,8 @@
     window.addEventListener("keypress", (e) =>{
       if (e.key === 'p') {
         clearInterval(gameLoop);
-        focoTimers.forEach((t) => {
-          t.pause();
-        })
+        focoTimers.forEach((t) => {t.pause();})
+        skullTimers.forEach((t) => {t.pause();})
         if(pause == null){
           pause = new Pause();
         }       
@@ -83,7 +85,8 @@
 
   function putEvils(){
     setFire();
-    setSkulls();
+    if(addMoreSkulls)
+      setSkulls();
   }
 
   function setFire() {
@@ -95,6 +98,7 @@
 
   function setSkulls(){
     let random = generateRandomTime(5,20);
+    addMoreSkulls = false;
     setTimeout(createSkull,random);
 
     function generateRandomTime(min,max){
@@ -103,11 +107,32 @@
 
     function createSkull(){
       let skull = new Skull();
-      // skull.burning();
+      skull.burning();
+      addMoreSkulls = true;
     }
   }
 
-  
+  function generatePosition(self){
+    let left = Math.floor((Math.random() * (gameDimensions[0]-devastationDims[0])));
+    let top = Math.floor((Math.random() * (gameDimensions[1]-devastationDims[1])));
+
+    while(isFireAtBigLake() || isFireAtSmallLake()){
+      left = Math.floor((Math.random() * (gameDimensions[0]-devastationDims[0])));
+      top = Math.floor((Math.random() * (gameDimensions[1]-devastationDims[1])));
+
+    }
+
+    self.element.style.left = `${left}px`;
+    self.element.style.top = `${top}px`;
+
+    function isFireAtBigLake(){
+      return left > 670 && left < 1050 && top < 90;
+    }
+
+    function isFireAtSmallLake(){
+      return top > 440 && top < 700 && left < 212;
+    }
+  }  
 
   class Timer{
     constructor(callback, delay){
@@ -149,30 +174,6 @@
       reserva.element.appendChild(this.element);
 
       this.state = "burning";
-
-      function generatePosition(self){
-        let left = Math.floor((Math.random() * (gameDimensions[0]-devastationDims[0])));
-        let top = Math.floor((Math.random() * (gameDimensions[1]-devastationDims[1])));
-
-        while(isFireAtBigLake() || isFireAtSmallLake()){
-          left = Math.floor((Math.random() * (gameDimensions[0]-devastationDims[0])));
-          top = Math.floor((Math.random() * (gameDimensions[1]-devastationDims[1])));
-
-        }
-
-        self.element.style.left = `${left}px`;
-        self.element.style.top = `${top}px`;
-
-        function isFireAtBigLake(){
-          return left > 670 && left < 1050 && top < 90;
-        }
-  
-        function isFireAtSmallLake(){
-          return top > 440 && top < 700 && left < 212;
-        }
-      }
-
-
     }
 
     burning(){
@@ -207,7 +208,6 @@
         self.element.parentNode.removeChild(self.element);
         score.increaseScore(10);
       }
-
       
     }
       
@@ -219,8 +219,47 @@
       this.element.className = "skull";
       this.element.style.width = `${skullDims[0]}px`;
       this.element.style.height = `${skullDims[1]}px`;
+      generatePosition(this);
       reserva.element.appendChild(this.element);
+
+      this.state = "burning";
     }
+
+    burning(){
+      var self = this;
+
+      stillBurning();
+      putOutFire();
+
+      function stillBurning(){
+        let timer = new Timer(devastation, 2000);
+        skullTimers.push(timer);
+        timer.resume();
+      }
+
+      function devastation(){
+        if(self.state != "extinguished"){
+          self.element.className += " skull-devastated"; 
+          self.element.style.height = `${bigDevastationDims[0]}px`;
+          self.element.style.width = `${bigDevastationDims[1]}px`;
+          self.element.removeEventListener("click",extinguish);
+          lives.loseLives(2);
+        } 
+      }
+
+      function putOutFire(){
+        self.element.addEventListener("click", extinguish);
+      }
+
+      function extinguish(){
+        self.state = "extinguished";
+        self.element.parentNode.removeChild(self.element);
+        score.increaseScore(10);
+      }
+      
+    }
+
+    
   }
 
   class Life {
@@ -237,6 +276,9 @@
       if(this.remainingLives > 0){
         this.remainingLives -= lives;
         this.element.style.width = `${this.remainingLives*lifeDimensions[0]}px`;
+      }
+      else{
+        this.remainingLives = 0;
       }
     }
   }
