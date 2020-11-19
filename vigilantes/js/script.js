@@ -1,6 +1,6 @@
 (function () {
 
-  let FPS = 5; 
+  let FPS = 1; 
 
   //Dimensions
   let gameDimensions = [1243, 960];
@@ -94,6 +94,28 @@
     window.removeEventListener("keypress",pausing);
     focoTimers.forEach((t) => {t.pause();})
     skullTimers.forEach((t) => {t.pause();})
+    window.addEventListener("keypress",restartGame);
+  }
+
+  function restartGame(e){
+      if(e.key === 's'){
+      removeElements("foco-incendio")
+      removeElements("skull");
+      removeElements("game-over");
+      score.reset();
+      lives.reset();
+
+      setLooping();
+      pauseGame();
+      resumeGame();       
+    }
+  }
+
+  function removeElements(classname){
+    let elements = document.getElementsByClassName(classname);
+    while(elements.length > 0){
+      elements[0].parentNode.removeChild(elements[0]);
+    }
   }
 
   function setScenario(){
@@ -307,6 +329,11 @@
         gameOver();
       }
     }
+
+    reset(){
+      this.remainingLives = 5;
+      this.element.style.width = `${this.remainingLives*lifeDimensions[0]}px`;
+    }
   }
 
   class Score {
@@ -321,6 +348,11 @@
 
     increaseScore(points){
       this.num += points;
+      this.element.innerHTML = this.num.toString().padStart(5, "0");
+    }
+
+    reset(){
+      this.num = 0;
       this.element.innerHTML = this.num.toString().padStart(5, "0");
     }
   }
@@ -338,13 +370,15 @@
   class GameOver{
     constructor(){
       this.element = document.createElement("div");
+      this.element.id = "game-over-image";
       this.element.className = "game-over";
       this.element.style.width = `${gameOverDims[0]}px`;
       this.element.style.height = `${gameOverDims[1]}px`;
       reserva.element.appendChild(this.element); 
 
       this.info = document.createElement("div");
-      this.info.className = "game-over-info";
+      this.info.id = "game-over-info";
+      this.info.className = "game-over";
       this.info.innerHTML = "Pressione S para iniciar um novo jogo!"
       reserva.element.appendChild(this.info);
     }

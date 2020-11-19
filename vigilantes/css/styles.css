@@ -52,7 +52,7 @@
   z-index: 2;
 }
 
-.game-over{
+#game-over-image{
   background-image: url('assets/gameover.png');
   position: absolute;
   top: 65px;
@@ -60,7 +60,7 @@
   z-index: 3;
 }
 
-.game-over-info{
+#game-over-info{
   position: absolute;
   top: 566px;
   left: 212px;
