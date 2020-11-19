@@ -10,6 +10,7 @@
   let bigDevastationDims = [375,375];
   let pauseDims = [512,512];
   let skullDims = [120,136];
+  let gameOverDims = [720,631];
   
   let probFoco = 25;
   let reserva;
@@ -32,8 +33,7 @@
         window.removeEventListener("keypress",start);
         setLooping();
         pauseGame();
-        resumeGame();
-        
+        resumeGame();        
       }      
     }
     window.addEventListener("keypress",start);  
@@ -84,6 +84,10 @@
     function resumeFocos(){
       focoTimers.forEach((t) => t.resume());
     }
+  }
+
+  function gameOver(){
+    over = new GameOver();
   }
 
   function setScenario(){
@@ -289,6 +293,10 @@
       else{
         this.remainingLives = 0;
       }
+
+      if(this.remainingLives == 0){
+        gameOver();
+      }
     }
   }
 
@@ -315,6 +323,16 @@
       this.element.style.width = `${pauseDims[0]}px`;
       this.element.style.height = `${pauseDims[1]}px`;
       reserva.element.appendChild(this.element);
+    }
+  }
+
+  class GameOver{
+    constructor(){
+      this.element = document.createElement("div");
+      this.element.className = "game-over";
+      this.element.style.width = `${gameOverDims[0]}px`;
+      this.element.style.height = `${gameOverDims[1]}px`;
+      reserva.element.appendChild(this.element); 
     }
   }
 

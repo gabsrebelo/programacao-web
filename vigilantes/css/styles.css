@@ -51,3 +51,11 @@
   position: absolute;
   z-index: 2;
 }
+
+.game-over{
+  background-image: url('assets/gameover.png');
+  position: absolute;
+  top: 65px;
+  left: 230px;
+  z-index: 3;
+}
