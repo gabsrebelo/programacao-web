@@ -40,7 +40,6 @@
   }
 
   function setLooping(){
-    //todo: adicionar game over
     gameLoop = setInterval(putEvils, 1000/FPS);
     increaseFPS();
   }
@@ -239,7 +238,6 @@
           self.element.style.width = `${devastationDims[1]}px`;
           self.element.removeEventListener("click",extinguish);
           lives.loseLives(1);
-          //todo: retirar da lista de focoTimers
         } 
       }
 
@@ -389,7 +387,3 @@
 
   init();
 })();
-
-
-//-----------melhorias
-//todo: mostrar tela de "pressione S para começar!"
