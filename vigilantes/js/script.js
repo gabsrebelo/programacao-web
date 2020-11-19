@@ -1,6 +1,6 @@
 (function () {
 
-  let FPS = 1; 
+  let FPS = 5; 
 
   //Dimensions
   let gameDimensions = [1243, 960];
@@ -54,17 +54,19 @@
   }
 
   function pauseGame(){
-    window.addEventListener("keypress", (e) =>{
-      if (e.key === 'p') {
-        clearInterval(gameLoop);
-        focoTimers.forEach((t) => {t.pause();})
-        skullTimers.forEach((t) => {t.pause();})
-        if(pause == null){
-          pause = new Pause();
-        }       
-        
-      }
-    });
+    window.addEventListener("keypress", pausing);
+  }
+
+  function pausing(e){
+    if (e.key === 'p') {
+      clearInterval(gameLoop);
+      focoTimers.forEach((t) => {t.pause();})
+      skullTimers.forEach((t) => {t.pause();})
+      if(pause == null){
+        pause = new Pause();
+      }    
+      
+    }
   }
 
   function resumeGame(){
@@ -88,6 +90,10 @@
 
   function gameOver(){
     over = new GameOver();
+    clearInterval(gameLoop);
+    window.removeEventListener("keypress",pausing);
+    focoTimers.forEach((t) => {t.pause();})
+    skullTimers.forEach((t) => {t.pause();})
   }
 
   function setScenario(){
@@ -119,9 +125,12 @@
     }
 
     function createSkull(){
-      let skull = new Skull();
-      skull.burning();
-      addMoreSkulls = true;
+      if(lives.remainingLives > 0){
+        let skull = new Skull();
+        skull.burning();
+        addMoreSkulls = true;
+
+      }
     }
   }
 
@@ -302,7 +311,7 @@
 
   class Score {
     constructor(){
-      this.num = 0;    
+      this.num = 0;  
       this.element = document.createElement("div");
       this.element.className = "score";
       this.element.style.width = `${gameDimensions[0]}px`;
@@ -333,6 +342,11 @@
       this.element.style.width = `${gameOverDims[0]}px`;
       this.element.style.height = `${gameOverDims[1]}px`;
       reserva.element.appendChild(this.element); 
+
+      this.info = document.createElement("div");
+      this.info.className = "game-over-info";
+      this.info.innerHTML = "Pressione S para iniciar um novo jogo!"
+      reserva.element.appendChild(this.info);
     }
   }
 

@@ -59,3 +59,13 @@
   left: 230px;
   z-index: 3;
 }
+
+.game-over-info{
+  position: absolute;
+  top: 566px;
+  left: 212px;
+  font-size: 50px;
+  z-index: 3;
+  font-weight: bold;
+  background-color: burlywood;
+}
