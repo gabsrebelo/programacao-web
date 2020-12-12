@@ -1,0 +1,6 @@
+
+myapp/node_modules/
+
+node/
+
+myapp/package-lock.json
