@@ -5,9 +5,7 @@ function index(req, res){
 }
 
 const sobre = (req,res) => {
-    res.render('main/sobre',{
-        layout:false
-    });
+    res.render('main/sobre');
 };
 
 module.exports = {index, sobre}
