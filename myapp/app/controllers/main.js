@@ -1,7 +1,5 @@
 function index(req, res){
-    res.render("main/index",{
-        layout: false
-    });
+    res.render("main/index");
 }
 
 const sobre = (req,res) => {
