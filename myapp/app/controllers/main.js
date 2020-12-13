@@ -10,4 +10,8 @@ const ui = (req,res) => {
     res.render('main/ui');
 };
 
-module.exports = {index, sobre, ui}
+const game = (req,res) => {
+    res.render('main/game');
+}
+
+module.exports = {index, sobre, ui, game}
