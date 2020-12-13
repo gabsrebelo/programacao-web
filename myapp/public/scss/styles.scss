@@ -1,0 +1,85 @@
+.reserva {
+  background-image: url('/img/assets/reserva.png');
+  position: absolute;
+  left: 0;
+  top: 56px;
+  z-index: 1;
+  margin-top: inherit;
+}
+
+.foco-incendio {
+  background-image: url('/img/assets/foco.gif');
+  position: absolute;
+  z-index: 2;
+}
+
+.foco-devastated{
+  background-image: url('/img/assets/devastacao.png');
+  position: absolute;
+  z-index: 2;
+}
+
+.vida {
+  background-image: url('/img/assets/arvore.png');
+  position: absolute;
+  top: 0;
+  z-index: 1; 
+  margin-top: inherit;
+  left: 0;
+}
+
+.score{
+  font-weight: bold;
+  font-family: "sans-serif";
+  font-size: 50px;
+  text-align: right;
+  color: white;
+  margin-top: inherit;
+  left: -1px;
+  position: absolute;
+  top: -3px;
+}
+
+.pause{
+  background-image: url('/img/assets/pause.png');
+  top: 200px;
+  left: 300px;
+  position: absolute;
+  z-index: 3; 
+}
+
+.skull{
+  background-image: url('/img/assets/caveira.gif');
+  position: absolute;
+  z-index: 2;
+}
+
+.skull-devastated{
+  background-image: url('/img/assets/devastacao_grande.png');
+  position: absolute;
+  z-index: 2;
+}
+
+#game-over-image{
+  background-image: url('/img/assets/gameover.png');
+  position: absolute;
+  top: 65px;
+  left: 230px;
+  z-index: 3;
+}
+
+#game-over-info{
+  position: absolute;
+  top: 566px;
+  left: 212px;
+  font-size: 50px;
+  z-index: 3;
+  font-weight: bold;
+  background-color: burlywood;
+}
+
+footer{
+    top:1200px;
+    position: absolute;
+    left: 10px;
+}

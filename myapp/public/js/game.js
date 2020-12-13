@@ -11,6 +11,7 @@
   let pauseDims = [512,512];
   let skullDims = [120,136];
   let gameOverDims = [720,631];
+  let container = document.getElementById("container-id")
   
   let probFoco = 25;
   let reserva;
@@ -203,7 +204,7 @@
       this.element.className = "reserva";
       this.element.style.width = `${gameDimensions[0]}px`;
       this.element.style.height = `${gameDimensions[1]}px`;
-      document.body.appendChild(this.element);
+      container.appendChild(this.element);
     }
   }  
   
@@ -311,7 +312,7 @@
       this.element.className = "vida";
       this.element.style.width = `${this.remainingLives*lifeDimensions[0]}px`;
       this.element.style.height = `${lifeDimensions[1]}px`;
-      document.body.appendChild(this.element);
+      container.appendChild(this.element);
     }
 
     loseLives(lives){
@@ -341,7 +342,7 @@
       this.element.className = "score";
       this.element.style.width = `${gameDimensions[0]}px`;
       this.element.innerHTML = this.num.toString().padStart(5, "0"); 
-      document.body.appendChild(this.element);
+      container.appendChild(this.element);
     }
 
     increaseScore(points){
